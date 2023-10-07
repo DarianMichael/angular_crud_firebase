@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="d-flex justify-content-between">
+        <button
+          class="btn btn-primary mt-4 position-static top-0 start-0"
+          (click)="_router.navigate(['users/add'])">
+          Agregar jugador
+        </button>
+        <button class="btn btn-warning py-1 mt-4 position-static top-0 end-0"
+        style="height: 40px;" (click)="logOut()">
+          Salir
+        </button>
+      </div>
+    </div>
+  </div>
+  <input
+    [formControl]="searcher"
+    type="text"
+    placeholder="Buscar jugador"
+    class="form-control mt-2"
+  />
+  <div class="players" *ngIf="players$ | async as players">
+    <table class="table">
+      <thead>
+        <tr class="text-white">
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Decks</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="text-white">
+        <tr *ngFor="let player of players; let i = index">
+          <th scope="row">{{ i }}</th>
+          <td>{{ player.name }}</td>
+          <td>
+            <li *ngFor="let deck of player.decks">
+              {{ deck.name }} - {{ deck.cards }} cartas
+            </li>
+          </td>
+          <td>
+            <button class="btn btn-primary" (click)="editPlayer(player)">
+              Editar
+            </button>
+            <button class="btn btn-danger ms-2" (click)="deletePlayer(player)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
